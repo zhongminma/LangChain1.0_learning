@@ -1,20 +1,20 @@
 # follow LangChain v1.0 docs and setup env
 
-## Installation
+## 1. Installation
 1. install langchain
 2. install openAI and anthropic
 3. install dotenv (for API Keys)
 
-## env and API Keys
+## 2. env and API Keys
 1. create a file .env and add keys
 2. check LangChain integrations to find llm providers
 3. API_KEYS from https://aistudio.google.com/api-keys
 4. BASE_URL is https://generativelanguage.googleapis.com
 
-## Use GOOGLE free tier 
+### Use GOOGLE free tier 
 pip install google-genai
 
-## test this runnable py
+## 2. test this runnable py
 ```python
 from google import genai
 from langchain_core.runnables import RunnableLambda
@@ -30,4 +30,4 @@ llm = RunnableLambda(gemini_llm)
 print(llm.invoke("Respond with OK only"))
 print(llm.invoke("when gemini release year"))
 
-
+```
