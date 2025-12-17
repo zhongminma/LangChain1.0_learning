@@ -1,0 +1,7 @@
+# Environment variables
+.env
+.env.*
+.idea/
+# Python cache
+__pycache__/
+*.pyc
