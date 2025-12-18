@@ -11,8 +11,11 @@
 3. API_KEYS from https://aistudio.google.com/api-keys
 4. BASE_URL is https://generativelanguage.googleapis.com
 
-### Use GOOGLE free tier 
+#### pip install package
+1. Use GOOGLE free tier 
 pip install google-genai
+2. Use GOOGLE free tier 
+pip install openai, python-dotenv
 
 ## 3. test this runnable py
 #### check LLM provider for documentation and runnable helloworld code

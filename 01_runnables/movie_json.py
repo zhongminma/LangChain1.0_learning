@@ -7,7 +7,7 @@ class Movie (BaseModel):
     title: str
     year: str
     director: str
-    ratings: str
+    ratings: float
 
 # parser
 movie_parser = JsonOutputParser()
