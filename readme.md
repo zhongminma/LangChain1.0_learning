@@ -14,7 +14,9 @@
 ### Use GOOGLE free tier 
 pip install google-genai
 
-## 2. test this runnable py
+## 3. test this runnable py
+#### check LLM provider for documentation and runnable helloworld code
+
 ```python
 from google import genai
 from langchain_core.runnables import RunnableLambda
@@ -29,5 +31,4 @@ llm = RunnableLambda(gemini_llm)
 
 print(llm.invoke("Respond with OK only"))
 print(llm.invoke("when gemini release year"))
-
 ```
