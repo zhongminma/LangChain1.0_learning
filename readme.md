@@ -17,6 +17,7 @@ pip install google-genai
 ## 3. test this runnable py
 #### check LLM provider for documentation and runnable helloworld code
 
+## using Gemini free tier
 ```python
 from google import genai
 from langchain_core.runnables import RunnableLambda
@@ -31,4 +32,20 @@ llm = RunnableLambda(gemini_llm)
 
 print(llm.invoke("Respond with OK only"))
 print(llm.invoke("when gemini release year"))
+```
+
+## Using OpenAI API Keys
+```python
+from dotenv import load_dotenv
+from langchain_openai import ChatOpenAI
+import os
+# auto read from .env
+load_dotenv()
+# use OpenAI
+llm = ChatOpenAI(
+    model="gpt-4o-mini",
+    temperature=0.3,
+)
+response = llm.invoke("Say OK Open AI")
+print(response.content)
 ```
