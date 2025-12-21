@@ -17,14 +17,14 @@ primary_prompt = PromptTemplate(
 # include_raw param can provide more info for AIMessage
 structured_llm = llm.with_structured_output(Movie, include_raw=True)
 
+# Chain and retry chain
 primary_chain = primary_prompt | structured_llm
-
-
 retry_chain = RunnableRetry(
     bound = primary_chain,
     max_attempts= 3,
 )
-# invalid JSON
+
+# invalid JSON and fix bad prompts
 fix_prompt = PromptTemplate(
     template = """
     The following output is invalid JSON or does not match the schema.
@@ -36,6 +36,7 @@ fix_prompt = PromptTemplate(
 )
 fix_chain = fix_prompt | structured_llm
 
+# fallback invoke
 def safe_invoke():
     try:
         return retry_chain.invoke({})
