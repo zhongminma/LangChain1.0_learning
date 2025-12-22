@@ -2,7 +2,6 @@ from langchain_core.output_parsers import PydanticOutputParser
 from langchain_core.prompts import PromptTemplate
 from pydantic import BaseModel
 from llm import llm
-
 class Movie(BaseModel):
     title: str
     year: str
@@ -25,6 +24,5 @@ prompt = PromptTemplate(
 
 chain = prompt | llm | parser
 
-response = chain.invoke({"movie_name": "ZooTopia"})
+response = chain.invoke({"movie_name": "ZooTopia"}),
 print(response)
-print(type(response))

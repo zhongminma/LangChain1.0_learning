@@ -1,5 +1,3 @@
-from email.feedparser import boundaryendRE
-
 from langchain_core.prompts import PromptTemplate
 from langchain_core.runnables.retry import RunnableRetry
 from pydantic import BaseModel
@@ -15,7 +13,7 @@ primary_prompt = PromptTemplate(
     template = """Provide information about the movie ZooTopia"""
 )
 # include_raw param can provide more info for AIMessage
-structured_llm = llm.with_structured_output(Movie, include_raw=True)
+structured_llm = llm.with_structured_output(Movie)
 
 # Chain and retry chain
 primary_chain = primary_prompt | structured_llm
