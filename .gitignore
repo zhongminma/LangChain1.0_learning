@@ -5,3 +5,12 @@
 # Python cache
 __pycache__/
 *.pyc
+# Python venv
+.venv/
+.venv311/
+
+# LangGraph
+.langgraph_api/
+
+# OS
+.DS_Store
