@@ -20,5 +20,6 @@ add_routes(app, chain, path="/explain")
 if __name__ == "__main__":
     import uvicorn
     uvicorn.run(app, host="127.0.0.1", port=8000)
+# pip install langchain langchain-openai fastapi langserve uvicorn
 # http://127.0.0.1:8000/docs for swagger
 # http://127.0.0.1:8000/explain/playground/ for web ui
