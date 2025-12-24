@@ -1,0 +1,18 @@
+# --- Server / ASGI ---
+fastapi>=0.110.0
+uvicorn[standard]>=0.29.0
+
+# --- LangChain core ---
+langchain>=0.2.0
+langchain-core>=0.2.0
+langserve>=0.2.0
+
+# --- LLM providers ---
+langchain-openai>=0.1.0
+openai>=1.30.0
+
+# --- Data / schema ---
+pydantic>=2.6.0
+
+# --- Utils ---
+python-dotenv>=1.0.0
