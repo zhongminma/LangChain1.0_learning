@@ -1,26 +1,29 @@
-## Backend Setup
-
+## 1. setup 
+### Backend Setup
+```Python
 python -m venv .venv
 source .venv/bin/activate
 pip install -r requirements.txt
+```
 
-## backend Run
+### Frontend setup
+```Python
+npx create-next-app@latest frontend-web
+```
 
+## 2. backend & frontend Run
+a. backend is running localhost:8000
+```Python
 cd backend
 uvicorn app.main:app --reload
-
-## cors 
-1. backend is running localhost:8000
-```Python
-cd backend 
-uvicorn app.main:app --reload
 ```
-2. frontend is running localhost:3000
+b. frontend is running localhost:3000
 ```Python
 cd .\frontend-web\
 npm run dev
 ```
-3. so api will face the cors issue and can be fixed by adding middleware
+c. cors config in backend
+Api call will face cors issue so it need to handle in the middleware
 ```Python
 app.add_middleware(
     CORSMiddleware,
@@ -33,14 +36,20 @@ app.add_middleware(
     allow_headers=["*"],
 )
 ```
-## backend NOTE
-### 1. need to lock app version and add requirements-dev.txt for dev
+d. backend NOTE
+#### d1. need to lock app version and add requirements-dev.txt for dev
 $ > pip freeze > requirements.lock.txt
+#### d2. set backend dir as Source Root and always add directory as new -> Python package.
 
-### 2. do not name file as app.py and fastapi, or some misleading keyword
-### 3. set backend dir as Source Root
-### 4. always add directory as new -> Python package.
+## 3. add chat history
+### 3.1  session_id + memory
+backend workflow
+```markdown
+session_id 
+-> in memory dict [session_id] 
+-> InMemoryChatMessageHistory stores history 
+-> RunnableWithMessageHistory make runnable 
+-> LLM inject history
+```
 
-
-## Frontend setup
-npx create-next-app@latest frontend-web
+### 3.2 user_id + conversation_id

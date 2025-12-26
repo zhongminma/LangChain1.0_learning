@@ -2,9 +2,11 @@ from fastapi import FastAPI
 from langserve import add_routes
 from starlette.middleware.cors import CORSMiddleware
 
+from app.chains.chat_chain import chat_chain
 from app.chains.topic_chain import chain
 
 app = FastAPI()
+
 app.add_middleware(
     CORSMiddleware,
     allow_origins=[
@@ -17,7 +19,10 @@ app.add_middleware(
 )
 
 add_routes(app, chain, path="/api/llm")
-
+add_routes(app, chat_chain, path="/api/chat")
+@app.get("/health")
+def health():
+    return {"status": "ok"}
 
 # 启动：
 # uvicorn app.main:app --reload

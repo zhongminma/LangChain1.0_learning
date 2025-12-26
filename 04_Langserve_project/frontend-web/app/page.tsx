@@ -1,5 +1,4 @@
 "use client";
-
 import { useState } from "react";
 import { invokeLLM } from "@/api/llm";
 import { LLMResult } from "@/components/LLMResult";
