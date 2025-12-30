@@ -1,4 +1,5 @@
-# follow LangChain v1.0 docs and setup env
+References: 
+https://ai.google.dev/gemini-api/docs/text-generation?authuser=2
 
 ## 1. Installation
 1. install langchain
@@ -11,10 +12,10 @@
 3. API_KEYS from https://aistudio.google.com/api-keys
 4. BASE_URL is https://generativelanguage.googleapis.com
 
-#### pip install package
+### pip install package
 1. Use GOOGLE free tier 
 pip install google-genai
-2. Use GOOGLE free tier 
+2. Use OpenAI free tier 
 pip install openai, python-dotenv
 
 ## 3. test this runnable py
@@ -52,3 +53,10 @@ llm = ChatOpenAI(
 response = llm.invoke("Say OK Open AI")
 print(response.content)
 ```
+## 4. temperature is [0.0, 2.0] 
+less value - more stable, more concise and more value - more creative response
+
+1. temperature = 0.0 ~ 0.2 if coding/debug
+2. temperature = 0.3 ~ 0.6 if text chat / QA
+3. temperature = 0.7 ~ 1.0 if brainstorm / writing
+4. temperature >1.2 - No recommendation

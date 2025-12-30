@@ -1,10 +1,8 @@
 from fastapi import FastAPI
 from langserve import add_routes
 from starlette.middleware.cors import CORSMiddleware
-
-from app.chains.chat_chain_session import chat_chain_session
 from app.chains.chat_chain_redis import chat_chain_redis
-from app.chains.topic_chain import chain
+from app.chains.conversation_chain import build_chain
 
 app = FastAPI()
 
@@ -26,5 +24,13 @@ add_routes(app, chat_chain_redis, path="/api/chat_redis")
 def health():
     return {"status": "ok"}
 
-# 启动：
-# uvicorn app.main:app --reload
+@app.post("/chat")
+async def chat(payload: dict):
+    user_id = payload["user_id"]
+    conversation_id = payload["conversation_id"]
+    input_text = payload["input"]
+
+    chain = build_chain(user_id, conversation_id)
+    result = await chain.ainvoke({"input": input_text})
+
+    return result

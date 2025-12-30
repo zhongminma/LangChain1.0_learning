@@ -48,8 +48,24 @@ backend workflow
 session_id 
 -> in memory dict [session_id] 
 -> InMemoryChatMessageHistory stores history 
--> RunnableWithMessageHistory make runnable 
+-> RunnableWithMessageHistory (need key)
 -> LLM inject history
 ```
 
 ### 3.2 user_id + conversation_id
+workflow 
+```markdown
+request(user_id, conversation_id, input)
+   ↓
+compose history_key = user_id:conversation_id
+   ↓
+history_store[history_key]
+   ↓
+ChatMessageHistory (InMemory / Redis)
+   ↓
+RunnableWithMessageHistory (need key)
+   ↓
+Prompt(MessagesPlaceholder injects history)
+   ↓
+  LLM
+```
