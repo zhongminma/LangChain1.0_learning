@@ -1,7 +1,7 @@
 Follow the LangChain v1.0 office docs as reference
 
 ##  build-up env 
-check READ.MD of 01_basic_sample
+check read.md of 01_basic_sample
 #### a. installation
 #### b. pip package
 #### c. Gemini and OpenAI llm setup
@@ -20,6 +20,7 @@ check READ.MD of 01_basic_sample
 ### a. stream 
 ### b. astream
 ### c. stream events
+### d. token usage (BaseCallbackHandler)
 
 ## 4. 04_langserve_project
 ### a. llm backend and next.js frontend (check read.md for setup)
