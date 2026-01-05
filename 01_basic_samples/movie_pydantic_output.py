@@ -2,6 +2,7 @@ from langchain_core.output_parsers import PydanticOutputParser
 from langchain_core.prompts import PromptTemplate
 from pydantic import BaseModel
 from llm import llm
+
 class Movie(BaseModel):
     title: str
     year: str

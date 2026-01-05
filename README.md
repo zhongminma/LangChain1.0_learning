@@ -8,6 +8,7 @@ Follow the LangChain v1.0 office docs as reference
 ## 1. 01_basic_examples
 #### a. llm + prompt + chain
 #### b. string, pydantic and structured output sample
+#### c. XML output (AoP-like enhancement)
 
 ## 2. 02_prompt_template
 ### a. string prompt template 
@@ -19,6 +20,7 @@ Follow the LangChain v1.0 office docs as reference
 ### a. stream 
 ### b. astream
 ### c. stream events
+### d. token usage (BaseCallBackHandler)
 
 ## 4. 04_langserve_project
 ### a. llm backend and next.js frontend (check read.md for setup)
