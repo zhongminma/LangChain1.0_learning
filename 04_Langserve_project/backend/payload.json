@@ -1,0 +1,10 @@
+﻿{
+  "input": { "topic": "how many teams in nfl" },
+  "config": {
+    "tags": ["frontend", "topic_chain"],
+    "metadata": {
+      "user_id": "u_demo_001",
+      "conversation_id": "c_demo_001"
+    }
+  }
+}
