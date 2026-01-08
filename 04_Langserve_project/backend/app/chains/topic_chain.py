@@ -1,6 +1,6 @@
 from langchain_core.prompts import PromptTemplate
 from langchain_core.output_parsers import PydanticOutputParser
-from llm import llm
+from llm.llm import llm
 from app.schemas.output import TopicSummary
 
 parser = PydanticOutputParser(pydantic_object=TopicSummary)

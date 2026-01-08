@@ -3,6 +3,7 @@ from langchain_core.prompts import PromptTemplate
 from pydantic import BaseModel
 from llm import llm
 import asyncio
+
 class Movie(BaseModel):
     title: str
     year: str

@@ -1,0 +1,66 @@
+CHUNK TYPE: <class 'dict'>
+CHUNK RAW : {
+  'model': {
+    'messages': [
+      AIMessage(
+        content='',
+        response_metadata={
+          'token_usage':{},
+          'finish_reason': 'tool_calls'
+        },
+        tool_calls=[
+          {
+          'name': 'multiply_three',
+          'args': {'a': 2, 'b': 3, 'c': 4},
+          'id': 'call_VVZVCfNlksFO0SFhCJOlznDL',
+          'type': 'tool_call'
+          }
+        ]
+      )
+    ]
+  }
+}
+CHUNK TYPE: <class 'dict'>
+CHUNK RAW : {
+  'tools': {
+    'messages': [
+      ToolMessage(
+        content='24',
+        name='multiply_three',
+        id='354d6217-2540-499a-ad4d-136fc2c2d7d0',
+        tool_call_id='call_VVZVCfNlksFO0SFhCJOlznDL'
+     )
+   ]
+  }
+}
+CHUNK TYPE: <class 'dict'>
+CHUNK RAW : {
+  'model': {
+    'messages': [
+      AIMessage(content='', additional_kwargs={'refusal': None}, response_metadata={'token_usage': {'completion_tokens': 22, 'prompt_tokens': 131, 'total_tokens': 153, 'completion_tokens_details': {'accepted_prediction_tokens': 0, 'audio_tokens': 0, 'reasoning_tokens': 0, 'rejected_prediction_tokens': 0}, 'prompt_tokens_details': {'audio_tokens': 0, 'cached_tokens': 0}}, 'model_provider': 'openai', 'model_name': 'gpt-4o-mini-2024-07-18', 'system_fingerprint': 'fp_8bbc38b4db', 'id': 'chatcmpl-Cvcao7e55qLJScxz3VfHxk9wZGFVz', 'service_tier': 'default', 'finish_reason': 'tool_calls', 'logprobs': None}, id='lc_run--019b9c04-5a55-7402-9d89-e0f6d1a01cb6-0', tool_calls=[{'name': 'multiply_three', 'args': {'a': 24, 'b': 5, 'c': 1}, 'id': 'call_CzhpA18JmFsXI9Ejl3diQ6UZ', 'type': 'tool_call'}], invalid_tool_calls=[], usage_metadata={'input_tokens': 131, 'output_tokens': 22, 'total_tokens': 153, 'input_token_details': {'audio': 0, 'cache_read': 0}, 'output_token_details': {'audio': 0, 'reasoning': 0}})]}}
+CHUNK TYPE: <class 'dict'>
+CHUNK RAW : {'tools': {'messages': [ToolMessage(content='120', name='multiply_three', id='f42a9130-89de-4971-9a64-5e1a90d91e1d', tool_call_id='call_CzhpA18JmFsXI9Ejl3diQ6UZ')]}}
+CHUNK TYPE: <class 'dict'>
+CHUNK RAW : {
+  'model': {
+    'messages': [
+      AIMessage(
+        content="Let's go through the calculations step by step:\n\n1) First, we calculate \\( 2 \\times 3 \\times 4 \\):\n   - The result is **24**.\n\n2) Next, we take the result (24) and multiply it by 5:\n   - The final result is **120**.\n\nSo, the overall calculation gives us **120**.",
+        additional_kwargs={'refusal': None},
+        response_metadata={
+          'token_usage': {'completion_tokens': 77, 'prompt_tokens': 162, 'total_tokens': 239, 'completion_tokens_details': {'accepted_prediction_tokens': 0, 'audio_tokens': 0, 'reasoning_tokens': 0, 'rejected_prediction_tokens': 0}, 'prompt_tokens_details': {'audio_tokens': 0, 'cached_tokens': 0}},
+          'model_provider': 'openai',
+          'model_name': 'gpt-4o-mini-2024-07-18',
+          'system_fingerprint': 'fp_8bbc38b4db',
+          'id': 'chatcmpl-CvcaqULGv8ncn1rihJ6ObMT3Q7WCO',
+          'service_tier': 'default',
+          'finish_reason': 'stop', # finish_reason
+          'logprobs': None
+        },
+        id='lc_run--019b9c04-5f74-7e83-a56e-59b37b8de72d-0',
+        tool_calls=[],
+        invalid_tool_calls=[],
+        usage_metadata={'input_tokens': 162, 'output_tokens': 77, 'total_tokens': 239, 'input_token_details': {'audio': 0, 'cache_read': 0}, 'output_token_details': {'audio': 0, 'reasoning': 0}})
+    ]
+  }
+}

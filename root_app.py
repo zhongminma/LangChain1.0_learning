@@ -1,6 +1,6 @@
 from langchain_core.prompts import PromptTemplate
 from langserve import add_routes
-from llm import llm
+from llm.llm import llm
 from fastapi import FastAPI
 
 prompt = PromptTemplate.from_template(
