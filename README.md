@@ -5,18 +5,18 @@ Follow the LangChain v1.0 office docs as reference
 #### b. pip package
 #### c. Gemini and OpenAI llm setup
 
-## 1. 01_basic_examples
+## 1. src/01_basic_examples
 #### a. llm + prompt + chain
 #### b. string, pydantic and structured output sample
 #### c. XML output (AoP-like enhancement)
 
-## 2. 02_prompt_template
+## 2. src/02_prompt_template
 #### a. string prompt template 
 #### b. chat_prompt_template
 #### c. fewshot prompt template
 #### c. fewshot selector (example selector)
 
-## 3. 03_runnable_examples
+## 3. src/03_runnable_examples
 #### a. stream 
 #### b. astream
 #### c. stream events
@@ -29,6 +29,6 @@ Follow the LangChain v1.0 office docs as reference
 #### d. Add redis RunnableWithMessageHistory 
 #### f. config LangSmith usage : https://smith.langchain.com/
 
-## 4. 05_tool_samples
+## 4. src/05_tool_samples
 #### a. tool decorator
 #### b. StructuredTool with async and coroutine args is required
