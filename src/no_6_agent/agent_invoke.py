@@ -1,3 +1,4 @@
+from jedi.inference.recursion import recursion_limit
 from langchain.agents import create_agent
 from langchain.messages import HumanMessage
 
@@ -14,6 +15,7 @@ result = agent.invoke(
     {
         "messages": [HumanMessage(content="What is 17 * 23? Use the tool.")]
     },
+    recursion_limit = 10
 )
 
 print(result)

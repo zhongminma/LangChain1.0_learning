@@ -10,7 +10,7 @@ Follow the LangChain v1.0 office docs as reference
 #### b. string, pydantic and structured output sample
 #### c. XML output (AoP-like enhancement)
 
-## 2. 02_prompt_template
+## 2. 02_prompt_template_examples
 #### a. string prompt template 
 #### b. chat_prompt_template
 #### c. fewshot prompt template
@@ -29,6 +29,22 @@ Follow the LangChain v1.0 office docs as reference
 #### d. Add redis RunnableWithMessageHistory 
 #### f. config LangSmith usage : https://smith.langchain.com/
 
-## 4. 05_tool_samples
+## 5. 05_tool_examples
 #### a. tool decorator
 #### b. StructuredTool with async and coroutine args is required
+
+## 6. 06_agent_examples
+#### a. agent invoke
+#### b. agent invoke how to debug
+#### c. agent streaming with a tool
+#### d. agent streaming with multiple tools
+
+## 7. 07__middleware_and_utils
+#### a. Memory (InMemoryChatMessageHistory)
+#### b. redis or DB
+#### c. token usage
+#### d. rate limiter
+#### e. logger
+
+## 6. 06_handlers
+#### a. error handler
