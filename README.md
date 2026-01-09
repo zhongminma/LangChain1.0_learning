@@ -11,7 +11,6 @@ Follow the LangChain v1.0 office docs as reference
 #### c. XML output (AoP-like enhancement)
 
 ## 2. src/02_prompt_template
->>>>>>> 21d21f709caeb7b27923ef89e796e883b2a8711d
 #### a. string prompt template 
 #### b. chat_prompt_template
 #### c. fewshot prompt template
@@ -31,7 +30,6 @@ Follow the LangChain v1.0 office docs as reference
 #### f. config LangSmith usage : https://smith.langchain.com/
 
 ## 4. src/05_tool_samples
->>>>>>> 21d21f709caeb7b27923ef89e796e883b2a8711d
 #### a. tool decorator
 #### b. StructuredTool with async and coroutine args is required
 
