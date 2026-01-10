@@ -16,10 +16,10 @@ vectorstore = FAISS.from_texts(docs, embedding=embeddings)
 
 retriever = vectorstore.as_retriever(search_kwargs={"k": 3})
 prompt = ChatPromptTemplate.from_messages([
-    ("system", "You are a helpful assistant. Use the context if relevant.\n\nContext:\n{context}"),
+    ("system", "You are a helpful assistant. Use the context if relevant.\nContext:\n{context}"),
     ("human", "{question}")
 ])
 chain = ({"context": retriever, "question": RunnablePassthrough()} | prompt | llm | StrOutputParser()
 )
 
-print(chain.invoke("我们项目里 session_id 报错 Missing keys 是怎么回事？"))
+print(chain.invoke("What error will be thrown if session_id missed keys?"))
