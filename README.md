@@ -4,6 +4,7 @@
 This repository is a hands-on **LLM engineering playground** focused on building, orchestrating, and operating **production-oriented LangChain workflows**.
 It explores how large language models can be integrated into real backend systems with attention to **state management, reliability, observability, and scalability**.
 Rather than isolated demos, this project emphasizes **engineering patterns and trade-offs** encountered when applying LLMs in real-world applications.
+
 LangChain 1.0 is released on Oct, 22, 2025 and it has a vast improvement over the 0.3 LangChain frameworks.
 
 ---
