@@ -1,4 +1,5 @@
-from langgraph.graph import StateGraph, START, END
+from langgraph.checkpoint.memory import MemorySaver
+from langgraph.graph import StateGraph, START, END, state
 from langchain_core.messages import HumanMessage, AIMessage, BaseMessage
 from langchain_core.tools import tool
 from typing import Annotated, Literal, Sequence, Dict, Any
@@ -105,7 +106,19 @@ workflow.add_edge("tech_support", END)
 workflow.add_edge("sales", END)
 workflow.add_edge("billing", END)
 
-app = workflow.compile()
+
+# using checkpointer
+memory = MemorySaver()
+app = workflow.compile(checkpointer=memory)
+# generate Mermaid graph
+# print(app.get_graph().draw_mermaid())
+# export PNG file
+png_bytes = app.get_graph().draw_mermaid_png()
+with open("graph.png", "wb") as f:
+    f.write(png_bytes)
+print("saved graph.png")
+
+config = {"configurable": {"thread_id": "user_123"}}
 
 # 7. test
 test_cases = [
@@ -116,8 +129,10 @@ test_cases = [
 
 for query in test_cases:
     print(f"User: {query}")
-    result = app.invoke({"messages": [HumanMessage(content=query)], "next": ""})
+    input_state = {"messages": [HumanMessage(content=query)], "next": ""}
+    result = app.invoke(input_state, config=config)
     for msg in result["messages"]:
         if isinstance(msg, AIMessage):
             print(msg.content)
     print()
+
