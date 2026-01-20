@@ -63,3 +63,9 @@ This repository is a hands-on LLM engineering playground focused on building, or
 ### 9. LangGraph - src/no_9_LangGraph
 - Stateful graph-based workflows
 - Counter and control-flow examples
+
+## Environment Setup
+- Python 3.x
+- pip / virtualenv
+- OpenAI / Gemini API configuration
+
