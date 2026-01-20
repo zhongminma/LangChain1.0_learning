@@ -1,54 +1,65 @@
-Follow the LangChain v1.0 office docs as reference
+# LLM Engineering Playground (LangChain v1.x, LangGraph, LangServe, RAG)
+This repository is a hands-on LLM engineering playground focused on building, orchestrating, and operating production-oriented LangChain workflows, including memory management, tool integration, streaming, and reliability concerns.
 
-##  build-up env 
-#### a. installation
-#### b. pip package
-#### c. Gemini and OpenAI llm setup
+## Project Goals
+- Explore LangChain v1.x core abstractions (Runnable, Prompt, Memory, Tools)
+- Design multi-turn chat workflows with session-aware and user-aware memory
+- Integrate LLM backends with real services (LangServe + Next.js)
+- Address production concerns such as observability, token usage, rate limiting, error handling, and state management
 
-## 1. src/no_01_basic_examples
-#### a. llm + prompt + chain
-#### b. string, pydantic and structured output sample
-#### c. XML output (AoP-like enhancement)
+## Technical Scope
+- LangChain v1.x (Runnable, PromptTemplate, Structured Output)
+- LangGraph for stateful LLM workflows
+- LangServe for backend API exposure
+- Redis / In-memory chat history
+- Streaming, async execution, and token tracking
+- Error handling, middleware, and rate limiting
+- Next.js frontend integration
 
-## 2. src/no_02_prompt_template
-#### a. string prompt template 
-#### b. chat_prompt_template
-#### c. fewshot prompt template
-#### c. fewshot selector (example selector)
+## Project Structure
 
-## 3. src/no_03_runnable_examples
-#### a. stream 
-#### b. astream
-#### c. stream events
-#### d. token usage (BaseCallBackHandler)
+### 1. Basic LangChain Building Blocks - src/no_01_basic_examples
+- LLM + Prompt + Chain composition
+- Structured output (Pydantic, JSON)
+- XML output handling with normalization (AOP-like preprocessing)
 
-## 4. no_04_langserve_project
-#### a. llm backend and next.js frontend (check read.md for setup)
-#### b. chat history with session_id + InMemory and session_id + redis
-#### c. chat history with user_id + conversation_id
-#### d. Add redis RunnableWithMessageHistory 
-#### f. config LangSmith usage : https://smith.langchain.com/
+### 2. Prompt Engineering - src/no_02_prompt_template
+- String and chat prompt templates
+- Few-shot prompting
+- Example selectors for dynamic prompt composition
 
-## 4. src/no_05_tool_samples
-#### a. tool decorator
-#### b. StructuredTool with async and coroutine args is required
+### 3. Runnable & Streaming - src/no_03_runnable_examples
+- stream / astream execution
+- Event streaming
+- Token usage tracking via BaseCallBackHandler
 
-## 6. src/no_06_agent_examples
-#### a. agent invoke
-#### b. agent invoke how to debug
-#### c. agent streaming with a tool
-#### d. agent streaming with multiple tools
+### 4. LangServe Full-Stack Project - no_04_langserve_project
+- LLM backend exposed via LangServe
+- Next.js frontend integration
+- Chat history with:
+  - session_id (in-memory / Redis)
+  - user_id + conversation_id
+- Redis-backed RunnableWithMessageHistory
+- LangSmith configuration for observability
 
-## 7. src/no_07__middleware_and_utils
-#### a. Memory (InMemoryChatMessageHistory)
-#### b. redis or DB
-#### c. token usage
-#### d. rate limiter
-#### e. logger
+### 5. Tools - src/no_05_tool_samples
+- @tool decorator usage
+- StructuredTool with async/coroutine support
 
-## 8. src/no_08_handlers
-#### a. error handler
+### 6. Agents - src/no_06_agent_examples
+- Agent invocation and debugging
+- Streaming agents with single and multiple tools
 
-## 9. src/no_9_LangGraph
-#### a. LangGraph counter sample
-#### b. 
+### 7. Middleware & Utilities -  src/no_07__middleware_and_utils
+- Memory abstraction (InMemoryChatMessageHistory)
+- Redis / database support
+- Token usage tracking
+- Rate limiting
+- Logging utilities
+
+### 8. Handlers - src/no_08_handlers
+- Centralized error handling
+
+### 9. LangGraph - src/no_9_LangGraph
+- Stateful graph-based workflows
+- Counter and control-flow examples
