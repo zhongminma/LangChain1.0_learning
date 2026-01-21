@@ -1,17 +1,14 @@
-import ast
-import math
-import operator
-import statistics
-
+import ast, math, operator, statistics
 from langchain_core.messages import HumanMessage
 from langchain_core.tools import tool
 from langgraph.graph import StateGraph, START, END
 from langgraph.graph.message import add_messages
 from langgraph.prebuilt import ToolNode
-from typing import Annotated, Literal
+from typing import Annotated, Literal, Dict, Any
 from typing_extensions import TypedDict
-
 from llm import llm
+
+# --- 1. Tool 1: Python Executor ---
 @tool("python_executor")
 def python_executor(expression: str) -> str:
     """
@@ -24,7 +21,7 @@ def python_executor(expression: str) -> str:
     except SyntaxError as e:
         return f"Invalid expression syntax: {e}"
 
-    # 2) whitelist
+    # whitelist
     allowed_nodes = (
         ast.Expression,
         ast.BinOp,
@@ -66,7 +63,8 @@ def python_executor(expression: str) -> str:
 
     return str(result)
 
-# --- Tool 2: Text Analyzer ---
+
+# --- 1. Tool 2: Text Analyzer ---
 @tool("text_analyzer")
 def text_analyzer(text: str, top_k: int = 8) -> Dict[str, Any]:
     """
@@ -89,42 +87,41 @@ def text_analyzer(text: str, top_k: int = 8) -> Dict[str, Any]:
         "top_words": [{"word": w, "count": c} for w, c in freq],
     }
 
+# 2. Shared State：AgentState
 class AgentState(TypedDict):
     messages: Annotated[list, add_messages]
     iterations: Annotated[int, operator.add]
 
-
+# 3. tool mount: ToolNode + bind_tools
 tools = [python_executor, text_analyzer]
+# a. agent read last tool_calls from AI message, add ToolMessage back to messages
 tool_node = ToolNode(tools)
-
+# b. let LLM know the available tools
 llm_with_tools = llm.bind_tools(tools)
 
-
+# 4. Agent will loop and LLM output AIMessage, append it into state.messages
 def call_model(state: AgentState):
     messages = state["messages"]
     response_msg = llm_with_tools.invoke(messages)
     return {"messages": [response_msg], "iterations": 1}
 
-
+# 5. should_continue, ReAct tools operator
 def should_continue(state: AgentState) -> Literal["tools", "__end__"]:
     last_message = state["messages"][-1]
-    # 对大多数 provider，AIMessage 有 tool_calls 属性
     if getattr(last_message, "tool_calls", None):
         return "tools"
     return "__end__"
 
+# 6. Graph: start -> agent -> tool_calls? -> if yes, tool to agent in a loop, otherwise end -> result
 workflow = StateGraph(AgentState)
 workflow.add_node("agent", call_model)
 workflow.add_node("tools", tool_node)
-
 workflow.add_edge(START, "agent")
 workflow.add_conditional_edges("agent", should_continue, {"tools": "tools", "__end__": END})
 workflow.add_edge("tools", "agent")
-
 app = workflow.compile()
 
 init_state: AgentState = {"messages": [], "iterations": 0}
-
 query = """Please do two things:
 1) Use python to calculate sqrt(2) + 3*5
 2) Analyze this text: "LangGraph is great. LangGraph makes tools easy."

@@ -131,10 +131,14 @@ LangChain 1.0 is released on Oct, 22, 2025 and it has a vast improvement over th
 - Stateful graph-based workflows
 - Control-flow and state transition examples
 - Counter-based LangGraph sample
-- chatbots MessagesState sample
-- react agent mode
-- supervisor agent mode
-- supervisor agent (PNG or mermaid)
+- Chatbots MessagesState 
+- mental mode 1/5: state-machin-agent (production mainly) 
+- mental mode 2/5： MCP Agent (primary)
+- mental mode 3/5：ReAct agent mode (seldom)
+- mental mode 4/5：Supervisor agent mode (seldom)
+- mental mode 4/5： Supervisor agent (PNG or mermaid) (seldom)
+- mental mode 5/5： plan-and-execute (seldom)
+
 
 ---
 

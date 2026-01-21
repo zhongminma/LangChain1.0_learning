@@ -1,14 +1,26 @@
 from langgraph.graph import StateGraph, START, END
-from langchain_core.messages import HumanMessage, AIMessage, BaseMessage
+from langchain_core.messages import HumanMessage, AIMessage, BaseMessage, SystemMessage
 from langchain_core.tools import tool
 from typing import Annotated, Literal, Sequence, Dict, Any
+
+from pydantic import BaseModel, Field
 from typing_extensions import TypedDict
 from langgraph.graph.message import add_messages
 
-# 1. state
+from llm import llm
+
+
+# 1. state (SupervisorState)
+class RouteDecision(BaseModel):
+    next: Literal["tech_support", "sales", "billing"] = Field(
+        description="Which specialist should handle the user's request"
+    )
+    reason: str = Field(description="Short reason for routing decision")
+
 class SupervisorState(TypedDict):
     messages: Annotated[Sequence[BaseMessage], add_messages]
     next: str  # next Agent
+    reason: str
 
 # 2. tools
 @tool
@@ -32,40 +44,34 @@ def query_invoice(order_id: str) -> str:
     invoices = {"ORD001": "receipt sent", "ORD002": "processing"}
     return invoices.get(order_id, "order not found")
 
-# 3. nodes
+# 3. nodes (specialist agents)
 def tech_agent_node(state):
     """ tech_support Agent """
     last_message = state["messages"][-1].content
-
     if "system" in last_message or "server" in last_message:
         result = check_system_status.invoke({"component": "server"})
         response = f"[technical support] system status: {result}"
     else:
         response = "[technical support] Please describe the tech question you are facing."
-
     return {"messages": [AIMessage(content=response)]}
 
 def sales_agent_node(state):
     """Sales Agent"""
     last_message = state["messages"][-1].content
-
     for product in ["Basic", "Professional"]:
         if product in last_message:
             info = get_product_info.invoke({"product_name": product})
             return {"messages": [AIMessage(content=f"[sales person]]{info}")]}
-
     return {"messages": [AIMessage(content="[sales person] We have a basic and professional, which one do you want?")]}
 
 def billing_agent_node(state):
     """ Billing Agent"""
     return {"messages": [AIMessage(content="[order tracker] Please provide the order number, I will check it.")]}
 
-
 # 4. Supervisor
 def supervisor_node(state):
     """Supervisor：please decide next step"""
     last_message = state["messages"][-1].content
-
     tech_keywords = ["error", "bug", "crash", "system", "server"]
     sales_keywords = ["price", "buy", "product", "menu"]
     billing_keywords = ["receipt", "pay", "refund", "bill"]
@@ -80,9 +86,32 @@ def supervisor_node(state):
         next_agent = "sales"  # 默认销售
     return {"next": next_agent}
 
-# 5. routing
+# 5. routing: route_after_supervisor
 def route_after_supervisor(state) -> Literal["tech_support", "sales", "billing"]:
     return state["next"]
+
+def supervisor_node(state: SupervisorState):
+    history = list(state["messages"])[-10:]
+    system = SystemMessage(content=
+        "You are a routing supervisor for a customer support system.\n"
+        "Your job is to decide which specialist should handle the user's last message.\n"
+        "Pick exactly ONE of: tech_support, sales, billing.\n"
+        "Return a JSON object with keys: next, reason.\n"
+        "Routing rules:\n"
+        "- tech_support: errors, bugs, crashes, server/system issues, API down, performance.\n"
+        "- sales: pricing, plans, features, product comparison, purchasing.\n"
+        "- billing: invoices, receipts, payments, refunds, charges.\n"
+        "If unclear, choose sales and ask a clarifying question in reason."
+    )
+    structured_llm = llm.with_structured_output(RouteDecision)
+    try:
+        decision: RouteDecision = structured_llm.invoke([system, *history])
+        nxt = decision.next
+        reason = decision.reason
+    except Exception as e:
+        nxt = "sales"
+        reason = f"Fallback to sales due to routing parse error: {e}"
+    return {"next": nxt, "reason": reason}
 
 # 6. graph
 workflow = StateGraph(SupervisorState)
@@ -116,7 +145,7 @@ test_cases = [
 
 for query in test_cases:
     print(f"User: {query}")
-    result = app.invoke({"messages": [HumanMessage(content=query)], "next": ""})
+    result = app.invoke({"messages": [HumanMessage(content=query)], "next": "", "reason": ""})
     for msg in result["messages"]:
         if isinstance(msg, AIMessage):
             print(msg.content)
