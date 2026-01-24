@@ -139,7 +139,44 @@ LangChain Framework v1.0 was released on October 22, 2025, and it is a vast impr
 - mental mode 4/5： Supervisor agent (PNG or mermaid) (seldom)
 - mental mode 5/5： plan-and-execute (seldom)
 
+### 11. RAG project: RAG with LangChain 
+`src/no_11_RAG_project`
+### Architecture
+```text
+User Question
+     ↓
+Query Embedding
+     ↓
+Vector Store (Chroma)
+     ↓
+Top-K Relevant Chunks
+     ↓
+Context Assembly
+     ↓
+LLM Answer (Grounded)
+```
+### Workflow
+- Ingestion (Offline)
+```text
+Raw documents
+ → Chunking
+ → Embeddings
+ → Chroma vector store (persistent)
+```
+- Query & Generation (Online)
+```text
+User question
+ → Vector similarity search
+ → Top-K chunks
+ → Prompt with context
+ → LLM answer
+```
+- run 
+```text
+python src/ingest.py
 
+python src/chat.py
+```
 ---
 
 ## Environment Setup
