@@ -138,6 +138,14 @@ LangChain Framework v1.0 was released on October 22, 2025, and it is a vast impr
 - mental mode 4/5：Supervisor agent mode (seldom)
 - mental mode 4/5： Supervisor agent (PNG or mermaid) (seldom)
 - mental mode 5/5： plan-and-execute (seldom)
+  
+---
+### 10. RAG experiments  
+`src/no_10_RAG_experiments`
+
+- indexing
+
+---
 
 ### 11. RAG project: RAG with LangChain 
 `src/no_11_RAG_project`
