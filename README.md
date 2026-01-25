@@ -144,6 +144,9 @@ LangChain Framework v1.0 was released on October 22, 2025, and it is a vast impr
 `src/no_10_RAG_experiments`
 
 - indexing
+- chunking
+- embedding
+- hybrid_search
 
 ---
 
