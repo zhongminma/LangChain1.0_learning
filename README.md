@@ -1,7 +1,8 @@
-# LLM Framework Playground <Python>
-**LangChain v1.x · LangGraph · LangServe · RAG Experiments**
+# LLM Framework Playground: From Foundations to AI Agents
+**LangChain v1.x · LangGraph · LangServe · RAG · Agentic RAG**
 
 This repository is a hands-on **LLM engineering playground** focused on building, orchestrating, and operating **production-oriented LangChain workflows**.
+It covers both **deterministic RAG pipelines** and **agentic RAG systems**, where retrieval is exposed as a tool and autonomously invoked by an AI agent.
 It explores how large language models can be integrated into real backend systems with attention to **state management, reliability, observability, and scalability**.
 Rather than isolated demos, this project emphasizes **engineering patterns and trade-offs** encountered when applying LLMs in real-world applications.
 
@@ -190,6 +191,33 @@ python src/chat.py
 ```
 ---
 
+### 12. AI Agent: Agentic RAG (RAG-as-Tool)
+`src/no_12_AI_agent_project`
+
+This module demonstrates an **agentic RAG architecture**, where retrieval is not a fixed pipeline step
+but is instead exposed as a callable tool and invoked autonomously by the LLM.
+
+### Architecture
+
+```text
+User Question
+     ↓
+LLM (Agent)
+     ↓ decides whether to retrieve
+RAG Tool (Hybrid Retrieval + Rerank)
+     ↓
+Grounded Context
+     ↓
+LLM Final Answer (with citations)
+```
+Key features:
+- RAG implemented as a tool (RAG-as-Tool)
+- Hybrid retrieval (BM25 + dense vector search)
+- Cross-encoder reranking for improved top-k relevance
+- Citation-enforced, grounded generation
+- Retrieval observability and regression logging (`storage/retrieval_logs.jsonl`)
+
+---
 ## Environment Setup
 
 - Python 3.x
